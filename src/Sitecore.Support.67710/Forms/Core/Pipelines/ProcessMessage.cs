@@ -1,18 +1,18 @@
 ﻿namespace Sitecore.Support.Forms.Core.Pipelines
 {
+  #region Namespaces
+
   using System;
-  using System.Net.Mail;
   using System.Text.RegularExpressions;
-  using Sitecore.Data;
-  using Sitecore.Data.Items;
   using Sitecore.Diagnostics;
-  using Sitecore.Links;
   using Sitecore.StringExtensions;
   using Sitecore.WFFM.Abstractions.Actions;
   using Sitecore.WFFM.Abstractions.Dependencies;
   using Sitecore.WFFM.Abstractions.Mail;
   using Sitecore.WFFM.Abstractions.Shared;
   using Sitecore.WFFM.Abstractions.Utils;
+
+  #endregion
 
   public class ProcessMessage
   {
@@ -113,16 +113,20 @@
         args.To.Replace(string.Join(string.Empty, new[] { item.ID.ToString() }), value);
         args.CC.Replace(string.Join(string.Empty, new[] { "[", item.ID.ToString(), "]" }), value);
         args.CC.Replace(string.Join(string.Empty, new[] { item.ID.ToString() }), value);
+        args.BCC.Replace(string.Join(string.Empty, new[] { "[", item.ID.ToString(), "]" }), value);
+        args.BCC.Replace(string.Join(string.Empty, new[] { item.ID.ToString() }), value);
         args.Subject.Replace(string.Join(string.Empty, new[] { "[", item.ID.ToString(), "]" }), value);
 
         args.From = args.From.Replace("[" + item.FieldDisplayName + "]", value);
         args.To.Replace(string.Join(string.Empty, new[] { "[", item.FieldDisplayName, "]" }), value);
         args.CC.Replace(string.Join(string.Empty, new[] { "[", item.FieldDisplayName, "]" }), value);
+        args.BCC.Replace(string.Join(string.Empty, new[] { "[", item.FieldDisplayName, "]" }), value);
         args.Subject.Replace(string.Join(string.Empty, new[] { "[", item.FieldDisplayName, "]" }), value);
 
         args.From = args.From.Replace("[" + field.FieldName + "]", value);
         args.To.Replace(string.Join(string.Empty, new[] { "[", field.FieldName, "]" }), value);
         args.CC.Replace(string.Join(string.Empty, new[] { "[", field.FieldName, "]" }), value);
+        args.BCC.Replace(string.Join(string.Empty, new[] { "[", field.FieldName, "]" }), value);
         args.Subject.Replace(string.Join(string.Empty, new[] { "[", field.FieldName, "]" }), value);
       }
     }
